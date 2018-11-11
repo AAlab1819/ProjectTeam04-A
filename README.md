@@ -15,22 +15,15 @@ This repository will solve problem [996A Hit the Lottery](https://codeforces.com
 - Compile and execute the source code that can be found in this repository using GNU G++11 5.1.0
 
 ### Problem:
-<p style="text-align: center;">
-Hit the Lottery
+<p align="center">
+<b>Hit the Lottery</b><br>
+<b>time limit per test: 1 second</b><br>
+<b>memory limit per test: 256 megabytes</b><br>
+<b>input standard input</b><br>
+<b>output standard output</b><br>  
 </p>
-<p style="text-align: center;">
-time limit per test: 1 second
-</p>
-<p style="text-align: center;">
-memory limit per test: 256 megabytes
-</p>
-<p style="text-align: center;">
-input standard input
-</p>
-<p style="text-align: center;">
-output standard output
-</p>
-<p style="text-align: justify;">
+
+<p align="justify">
 Allen has a LOT of money. He has n dollars in the bank. For security reasons, he wants to withdraw it in cash (we will not disclose the reasons here). The denominations for dollar bills are 1, 5, 10, 20, 100. What is the minimum number of bills Allen could receive after withdrawing his entire balance?
 </p>
 Input:
