@@ -12,6 +12,7 @@ This repository will solve problem [996A Hit the Lottery](https://codeforces.com
 - C++ 11
 
 ### Installation/Running Instructions:
+- Install TDMGCC and change compiler settings to be using TDMGCC
 - Compile and execute the source code that can be found in this repository using GNU G++11 5.1.0
 
 ### Problem:
@@ -99,48 +100,94 @@ We then iterate through the amount of money **i** from **1** to our given money 
 
 ```
 Example:
-i = 15
+n = 20
+i = 15 (Currently looking for minimum bills needed to build 15 dollars)
 bills = [1,5,10.20,100]
-DP:
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 |
--------------------------------------------------------------------------
-0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  |Inf |Inf |
+DP Start:
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+-----------------------------------------------------------------------------------------------
+0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  |Inf |Inf |Inf |Inf |Inf |Inf |
                                                             ^
-
-As you can see, the amount of bills needed to build each and every number would be incremented by 1 (the smallest bill in the question)
-until it meets another possible bill the element can take (for e.g. element with 5, number of bills restart to 1) to build it with the least amount of bills.
-
-bill 1:
-sub_res = table[15 - 1]
-        = table[14] // We take a look at the previous element to see how many bills in minimum were needed to build that amount.
-        
-        To build 14, we would need the minimum of 5 bills, one 10 bill and four 1 bills.
-        
-        Since we are trying to approach this problem by determining the least amount of bills to build the numbers, we take the 'memory'
-        of the amount of bills needed to build the previous element and add it by 1.
-        
-        Why 1? Well, that is simple the difference between the current element we're trying to find the least amount of possible bills
-        for and the previous element's minimum amount of bills.
-         
-        = 5 bills + 1 = 6 bills. // 
-        Currently , 6 bills is obviously lesser than Infinity. So that will be our current benchmark for now. It will keep comparing 
-        with the previous elements until it finds a newer, smaller amount of possible bills (from the given question) to build the 
-        element in question. 
-        
-        Next possible smaller amount of bills is element 10, where it only needs one 10 dollar bill to build it. So to build 15, we 
-        would only need 2 bills since (1 bill + 1 = 2 bills)
-        
-        Why would we add it by 1 when the difference between 15 and 10 is 5, not 1?
-        Well, remember that we have a given array of bills at our disposal? 1, 5, 10, etc?
-        Yes, we would use one 10 bill and one **5** bill to build 15, the current element in question.
-        
-        Thus, now the DP pattern becomes slightly clearer.
-        
+m = 0 (Currently looking for the minimum bills given that we take one 1 dollar bill)
+15 - 1 = 14 (We check the minimum bill needed to make 14 dollars)
+DP[14] = 5
+minimum bills = 5 + 1 (We add 1 which signifies the 1 dollar bill we took)
+              = 6
+DP[15] = 6 < Inf (Compare new minimum bill result and the previous one stored in DP[15]
+       = 6
 
 
+
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+-----------------------------------------------------------------------------------------------
+0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  | 6  |Inf |Inf |Inf |Inf |Inf |
+                                        ^
+m = 1 (Currently looking for the minimum bills given that we take one 5 dollar bill)
+15 - 5 = 10 (We check the minimum bill needed to make 10 dollars)
+DP[10] = 1
+minimum bills = 1 + 1 (We add 1 which signifies the 5 dollar bill we took)
+              = 2
+DP[15] = 2 < 6 (Compare new minimum bill result and the previous one stored in DP[15])
+       = 2
+
+
+
+
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+-----------------------------------------------------------------------------------------------
+0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  | 2  |Inf |Inf |Inf |Inf |Inf |
+                    ^
+m = 2 (Currently looking for the minimum bills given that we take one 10 dollar bill)
+15 - 10 = 5 (We check the minimum bill needed to make 5 dollars)
+DP[5] = 1
+minimum bills = 1 + 1 (We add 1 which signifies the 10 dollar bill we took)
+              = 2
+DP[15] = 2 !< 2 (Compare new minimum bill result and previous one stored in DP[15])
+       = 2 (Keep old minimum bill, because new result is not less than old)
+
+
+
+
+
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+-----------------------------------------------------------------------------------------------
+0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  |2   |Inf |Inf |Inf |Inf |Inf |
+
+m = 3 (Currently looking for the minimum bills given that we take one 20 dollar bill)
+15 - 20 = -5 (Bill is larger than our current money, so it is not possible to take this bill)
+DP[15] = no change
+
+
+
+
+
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+-----------------------------------------------------------------------------------------------
+0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  | 2  |Inf |Inf |Inf |Inf |Inf |
+
+m = 4 (Currently looking for the minimum bills given that we take one 100 dollar bill)
+15 - 100 = -85 (Bill is larger than our current money, so it is not possible to take this bill)
+DP[15] = no change
+
+DP Final:
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+-----------------------------------------------------------------------------------------------
+0 | 1 | 2 | 3 | 4 | 1 | 2 | 3 | 4 | 5 | 1  | 2  | 3  | 4  | 5  | 2  |Inf |Inf |Inf |Inf |Inf |
+DP[15] = 2
+Minimum bill for 15 dollar is 2 bills.
 ```
 
 The time complexity for this method will be **O(mn)**, where **m** is the number of bill types and **n** is the amount of money. This is because we iterate through all the **n** money 
+
+### Comparison
+
+Input:  |   125   |  82655  |  6364   | 45391 | 671704 |  9628747 | 
+
+Greedy: |
+
+DP:     |   0ms   |   4ms   |   0ms   |  0ms  |  MLE   |    MLE   |
+
+MLE: Memory Limit Exceeded
 
 ### Analysis
 
@@ -151,6 +198,6 @@ Greedy:
 DP:
 
 - Time complexity: O(nm)
-- Memory allocation: 0 <= k <= some big number
+- Memory allocation: 0 <= k <= 10^9
 
 Greedy is better than DP for this problem in terms of time and memory. Greedy uses a series of non-nested loops, while DP uses a nested loop. The memory allocation of greedy is also possibly less than DP as DP require the creation of array with size of **n**, where **n** may be a number as big as 10^9.
