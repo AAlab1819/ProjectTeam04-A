@@ -86,11 +86,12 @@ This problem is a classic minimum coin change problem. The objective of this pro
 
 ### Greedy Solution:
 
-The greedy way of solving this problem is by taking as many 100 bills as possible, followed by 20 bills, 10 and so on. This is done by repeatedly subtracting the given amount of money by 100 until it is less than 100 and incrementing the **number of bills used** on each iteration. We then move on repeating the process but with the next bill in a descending order until we are done with all the bills. 
+The greedy way of solving this problem is by taking as many 100 bills as possible, followed by 20 bills, 10 bills, 5 bills and 1 bills.
+This is done by checking if the given amount of ```money``` is greater than 100, if it is then it will divide ```money``` by 100 to get 
+the most number of 100 bills we can take. We then reduce ```money``` by the amount of money we have already taken in 100 bills, and 
+repeat the process with the next iteration of bills.
 
-The **number of bills used** will the minimum number of bills, and this solution is possible because each of the bill in the sequence is the divisor the the next bill.
-
-The time complexity for this method will be **O(n)**, where **n** is the number of times the money will be subtracted by the bills.
+The time complexity for this method will be **O(1)**, as program runs once and have a constant execution time.
 
 ### Dynamic Programming Solution:
 
@@ -181,23 +182,23 @@ The time complexity for this method will be **O(mn)**, where **m** is the number
 
 ### Comparison
 
-Input:  |   125   |  82655  |  6364   | 45391 | 671704 |  9628747 | 
+Input:  |   125   |  82655  |  87441  | 45391 | 671704 |  9628747 | 
 
-Greedy: |
+Greedy: |   2ms   |   2ms   |   2ms   |  2ms  |  2ms   |    2ms   |
 
-DP:     |   0ms   |   4ms   |   0ms   |  0ms  |  MLE   |    MLE   |
+DP:     |   0ms   |   4ms   |   6ms   |  1ms  |  MLE   |    MLE   |
 
 MLE: Memory Limit Exceeded
 
 ### Analysis
 
 Greedy:
-- Time complexity: O(n)
-- Memory allocation: 0 <= k <= 252
+- Time complexity: O(1)
+- Memory allocation: 0 (Insignificantly small)
 
 DP:
 
 - Time complexity: O(nm)
 - Memory allocation: 0 <= k <= 10^9
 
-Greedy is better than DP for this problem in terms of time and memory. Greedy uses a series of non-nested loops, while DP uses a nested loop. The memory allocation of greedy is also possibly less than DP as DP require the creation of array with size of **n**, where **n** may be a number as big as 10^9.
+Greedy is better than DP for this problem in terms of memory and time(if ```money``` is small). Greedy does not have any loops making the time constant, while DP uses a nested loop which makes the time dependent on the sample. The memory allocation of greedy is also significantly less than DP as DP require the creation of array with size of **n**, where **n** may be a number as big as 10^9.
