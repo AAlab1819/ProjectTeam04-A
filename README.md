@@ -181,7 +181,7 @@ Minimum bill for 15 dollar is 2 bills.
 The time complexity for this method will be **O(mn)**, where **m** is the number of bill types and **n** is the amount of money. This is because we iterate through all the **n** money 
 
 ### Comparison
-
+```
 Input:  |   125   |  82655  |  87441  | 45391 | 671704 |  9628747 | 
 
 Greedy: |   2ms   |   2ms   |   2ms   |  2ms  |  2ms   |    2ms   |
@@ -189,7 +189,7 @@ Greedy: |   2ms   |   2ms   |   2ms   |  2ms  |  2ms   |    2ms   |
 DP:     |   0ms   |   4ms   |   6ms   |  1ms  |  MLE   |    MLE   |
 
 MLE: Memory Limit Exceeded
-
+```
 ### Analysis
 
 Greedy:
