@@ -248,4 +248,4 @@ DP:
 - Time complexity: O(nm)
 - Memory allocation: 0 <= k <= 10^9
 
-Greedy is better than DP for this problem in terms of memory and time(if ```money``` is small). Greedy does not have any loops making the time constant, while DP uses a nested loop which makes the time dependent on the sample. The memory allocation of greedy is also significantly less than DP as DP require the creation of array with size of **n**, where **n** may be a number as big as 10^9.
+Greedy is better than DP for this problem. Greedy does not have any loops making the time constant, while DP uses a nested loop which makes the time dependent on the sample. Time for DP is better than Greedy when sample is small until a certain point, then Greedy is better than DP. The memory allocation of greedy is also significantly less than DP as DP require the creation of array with size of **n**, where **n** may be a number as big as 10^9.
