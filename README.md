@@ -91,6 +91,18 @@ This is done by checking if the given amount of ```money``` is greater than 100,
 the most number of 100 bills we can take. We then reduce ```money``` by the amount of money we have already taken in 100 bills, and 
 repeat the process with the next iteration of bills.
 
+```c++
+if(n/100)   //Checks if its possible to use 100 bill
+    m+=(n/100), n-=(n/100)*100; //Adds 100 bills used to m, reduce n by money taken in 100 bills
+if(n/20)   //Checks if its possible to use 20 bill
+    m+=(n/20), n-=(n/20)*20; //Adds 50 bills used to m, reduce n by money taken in 50 bills
+if(n/10)   //Checks if its possible to use 10 bill
+    m+=(n/10), n-=(n/10)*10; //Adds 20 bills used to m, reduce n by money taken in 20 bills
+if(n/5)   //Checks if its possible to use 5 bill
+    m+=(n/5), n-=(n/5)*5; //Adds 10 bills used to m, reduce n by money taken in 10 bills
+    m+=n;   //Use 1 bill for the leftover money
+```
+
 The time complexity for this method will be **O(1)**, as program runs once and have a constant execution time.
 
 ### Dynamic Programming Solution:
@@ -98,6 +110,38 @@ The time complexity for this method will be **O(1)**, as program runs once and h
 The dynamic programming way of solving this problem is by making a **temporary table[]** to store the **minimum number of bills** in a bottom up manner to avoid recomputation. This is done by making a **table[]** of the size **n + 1** and filling it all with **infinity** except for **table[0]** where we will fill it with **0**. 
 
 We then iterate through the amount of money **i** from **1** to our given money **n** and fill the respective table element with the minimum coins required to make up the money. This is done by iterating through all bills **m** for each amount of money **i**, if it is possible to subtract the money **i** by the bill **m**, then we subtract it and take the element in the table corresponding to the subtracted amount which will contain the minimum bill if we subtract the money **i** by the bill **m** already. If the result for using the bill **m** for this amount is less than the previous amount (using other bill), then we update **table[i]** with the new value that is **table[i-coins[j]]+ 1**. After iterating through all the money we will get our result which is the minimum bills required for money **n** in the **table[n]**.
+
+```c++
+ll minCoins(int coins[], int m, ll V)
+{
+    // table[i] will be storing the minimum number of coins
+    // required for i value.  So table[V] will have result
+    ll table[V+1];
+
+    // Base case (If given value V is 0)
+    table[0] = 0;
+
+    // Initialize all table values as Infinite
+    for (ll i=1; i<=V; i++)
+        table[i] = LONG_LONG_MAX;
+
+    // Compute minimum coins required for all
+    // values from 1 to V
+    for (ll i=1; i<=V; i++)
+    {
+        // Go through all coins smaller than i
+        for (int j=0; j<m; j++)
+          if (coins[j] <= i)
+          {
+              ll sub_res = table[i-coins[j]];
+              if (sub_res != LONG_LONG_MAX && sub_res + 1 < table[i])
+                  table[i] = sub_res + 1;
+          }
+    }
+    return table[V];
+}
+```
+
 
 ```
 Example:
@@ -182,11 +226,11 @@ The time complexity for this method will be **O(mn)**, where **m** is the number
 
 ### Comparison
 ```
-Input:  |   125   |  82655  |  87441  | 45391 | 671704 |  9628747 | 
+Input:  |   125   | 45391 |  82655  |  87441  | 671704 |  9628747 | 
 
-Greedy: |   2ms   |   2ms   |   2ms   |  2ms  |  2ms   |    2ms   |
+Greedy: |   2ms   |  2ms  |   2ms   |   2ms   |  2ms   |    2ms   |
 
-DP:     |   0ms   |   4ms   |   6ms   |  1ms  |  MLE   |    MLE   |
+DP:     |   0ms   |  1ms  |   4ms   |   6ms   |  MLE   |    MLE   |
 
 MLE: Memory Limit Exceeded
 ```
