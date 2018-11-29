@@ -234,6 +234,9 @@ DP:     |   0ms   |  1ms  |   4ms   |   6ms   |  MLE   |    MLE   |
 
 MLE: Memory Limit Exceeded
 ```
+
+![](TimeComparison.jpg)
+
 ### Analysis
 
 Greedy:
